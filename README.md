@@ -1,1 +1,1 @@
-# goalaso.github.io/index.php
+# goalaso.github.io/index.html
