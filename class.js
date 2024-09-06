@@ -9,7 +9,7 @@ class Minesweeper
 	rows = 0;
 	cols = 0;
 
-	disabled = true;
+	isdisabled = true;
 	
     constructor(rows = Minesweeper.SIZE, columns = Minesweeper.SIZE, probability_chance = 0.1)
     {
@@ -65,7 +65,7 @@ class Minesweeper
 	
 	lock()
 	{
-		disabled = true;
+		this.isdisabled = true;
 		for(let i = 0; i < this.rows; i++) {
 			for(let j = 0; j < this.cols; j++) {
 				let btn = this.cells[i][j];
@@ -82,7 +82,7 @@ class Minesweeper
 					this.board.cells[i][j].removeAttribute("disabled");
 				}
 			}
-			disabled = false;
+			Minesweeper.isdisabled = false;
 			this.innerHTML = "Reset";
 		} else if (this.innerHTML == "Reset") {
 			for(let i = 0; i < this.board.rows; i++) {
@@ -96,6 +96,7 @@ class Minesweeper
 					btn.disabled = true;
 				}
 			}
+			Minesweeper.isdisabled = true;
 			this.innerHTML = "Start";
 			let gameover = document.getElementById("game_over");
 			gameover.style.display = "none";
@@ -106,7 +107,7 @@ class Minesweeper
 	_flag(event)
 	{
 		event.preventDefault();
-		if(!disabled) {
+		if(!Minesweeper.isdisabled) {
 			let btn = this;
 			if (!btn.className.includes("F") && !btn.className.includes("R")) {
 				btn.className += "F";
