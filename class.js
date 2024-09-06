@@ -8,6 +8,8 @@ class Minesweeper
 	cells = [];
 	rows = 0;
 	cols = 0;
+
+	disabled = true;
 	
     constructor(rows = Minesweeper.SIZE, columns = Minesweeper.SIZE, probability_chance = 0.1)
     {
@@ -63,6 +65,7 @@ class Minesweeper
 	
 	lock()
 	{
+		disabled = true;
 		for(let i = 0; i < this.rows; i++) {
 			for(let j = 0; j < this.cols; j++) {
 				let btn = this.cells[i][j];
@@ -79,6 +82,7 @@ class Minesweeper
 					this.board.cells[i][j].removeAttribute("disabled");
 				}
 			}
+			disabled = false;
 			this.innerHTML = "Reset";
 		} else if (this.innerHTML == "Reset") {
 			for(let i = 0; i < this.board.rows; i++) {
@@ -102,15 +106,17 @@ class Minesweeper
 	_flag(event)
 	{
 		event.preventDefault();
-		let btn = this;
-		if (!btn.className.includes("F") && !btn.className.includes("R")) {
-			btn.className += "F";
-			btn.style.background = "url('assets/flag.png')";
-			btn.style.backgroundSize = "100%";
-		} else if (!btn.className.includes("R")) {
-			btn.className = btn.className.replace("F", "");
-			btn.style.background = "url('assets/empty.png')";
-			btn.style.backgroundSize = "100%";
+		if(!disabled) {
+			let btn = this;
+			if (!btn.className.includes("F") && !btn.className.includes("R")) {
+				btn.className += "F";
+				btn.style.background = "url('assets/flag.png')";
+				btn.style.backgroundSize = "100%";
+			} else if (!btn.className.includes("R")) {
+				btn.className = btn.className.replace("F", "");
+				btn.style.background = "url('assets/empty.png')";
+				btn.style.backgroundSize = "100%";
+			}
 		}
 	}
 	
