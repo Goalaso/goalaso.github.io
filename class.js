@@ -16,6 +16,7 @@ class Minesweeper
 		this.rows = rows;
 		this.cols = columns;
 		this.prob = probability_chance;
+		this.isdisabled = true;
     }
     
     init_board()
@@ -65,7 +66,7 @@ class Minesweeper
 	
 	lock()
 	{
-		this.isdisabled = true;
+		Minesweeper.isdisabled = true;
 		for(let i = 0; i < this.rows; i++) {
 			for(let j = 0; j < this.cols; j++) {
 				let btn = this.cells[i][j];
@@ -96,7 +97,6 @@ class Minesweeper
 					btn.disabled = true;
 				}
 			}
-			Minesweeper.isdisabled = true;
 			this.innerHTML = "Start";
 			let gameover = document.getElementById("game_over");
 			gameover.style.display = "none";
@@ -106,6 +106,7 @@ class Minesweeper
 	
 	_flag(event)
 	{
+		console.log(Minesweeper.isdisabled);
 		event.preventDefault();
 		if(!Minesweeper.isdisabled) {
 			let btn = this;
